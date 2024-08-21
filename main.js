@@ -32,3 +32,4 @@ console.log(test.toString());
 
 console.log(test.keys());
 console.log(test.values());
+console.log(test.entries());

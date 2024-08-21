@@ -105,6 +105,14 @@ class HashMap {
     }
     return values;
   }
+
+  entries() {
+    let result = [];
+    for (let i = 0; i < this.buckets.length; i++) {
+      result.push(this.buckets[i]);
+    }
+    return result || 'HashMap is empty';
+  }
 }
 
 export default HashMap;
