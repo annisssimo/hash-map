@@ -1,0 +1,13 @@
+{
+  "name": "hash-map",
+  "version": "1.0.0",
+  "description": "My own implementation of HashMap in JS",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
