@@ -1,6 +1,6 @@
 class HashMap {
-  constructor(initialCapacity = 16, loadFactor = 0.8) {
-    this.buckets = new Array(initialCapacity).fill(null);
+  constructor(initialCapacity = 16, loadFactor = 0.75) {
+    this.buckets = new Array(initialCapacity);
     this.size = 0;
     this.loadFactor = loadFactor;
   }
@@ -14,6 +14,14 @@ class HashMap {
     return hashCode % this.buckets.length;
   }
 
+  toString() {
+    let result = '';
+    for (let i = 0; i < this.buckets.length; i++) {
+      result += `Bucket ${i}: ${JSON.stringify(this.buckets[i])}\n`;
+    }
+    return result || 'HashMap is empty';
+  }
+
   set(key, value) {
     const index = this.hash(key);
 
@@ -21,25 +29,22 @@ class HashMap {
       this.buckets[index] = [];
     }
 
-    for (let pair of this.buckets[index]) {
-      if (pair[0] === key) {
-        pair[1] = value;
-        return;
-      }
-    }
-
     this.buckets[index].push([key, value]);
     this.size++;
   }
 
-  toString() {
-    let result = '';
-    for (let i = 0; i < this.buckets.length; i++) {
-      if (this.buckets[i]) {
-        result += `Bucket ${i}: ${JSON.stringify(this.buckets[i])}\n`;
+  get(key) {
+    const index = this.hash(key);
+
+    if (!this.buckets[index]) {
+      return null;
+    }
+
+    for (let i = 0; i < this.buckets[index].length; i++) {
+      if (this.buckets[index][i][0] === key) {
+        return this.buckets[index][i][1];
       }
     }
-    return result || 'HashMap is empty';
   }
 }
 
