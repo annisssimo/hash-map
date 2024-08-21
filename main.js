@@ -31,3 +31,4 @@ console.log(test.length());
 console.log(test.toString());
 
 console.log(test.keys());
+console.log(test.values());
