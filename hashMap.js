@@ -81,6 +81,18 @@ class HashMap {
     this.buckets.fill(null);
     this.size = 0;
   }
+
+  keys() {
+    const keys = [];
+    for (let i = 0; i < this.buckets.length; i++) {
+      if (this.buckets[i]) {
+        for (let j = 0; j < this.buckets[i].length; j++) {
+          keys.push(this.buckets[i][j][0]);
+        }
+      }
+    }
+    return keys;
+  }
 }
 
 export default HashMap;

@@ -27,5 +27,7 @@ console.log(test.toString());
 
 console.log(test.length());
 
-test.clear();
+// test.clear();
 console.log(test.toString());
+
+console.log(test.keys());
