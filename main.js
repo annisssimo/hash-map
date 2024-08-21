@@ -14,22 +14,23 @@ test.set('ice cream', 'white');
 test.set('jacket', 'blue');
 test.set('kite', 'pink');
 test.set('lion', 'golden');
+test.set('lion', 'yellow');
 
 console.log(test.toString());
 
-console.log(test.get('frog'));
+// console.log(test.get('frog'));
 
-console.log(test.has('lion'));
-console.log(test.has('abra'));
+// console.log(test.has('lion'));
+// console.log(test.has('abra'));
 
-console.log(test.remove('frog'));
-console.log(test.toString());
+// console.log(test.remove('frog'));
+// console.log(test.toString());
 
-console.log(test.length());
+// console.log(test.length());
 
 // test.clear();
-console.log(test.toString());
+// console.log(test.toString());
 
-console.log(test.keys());
-console.log(test.values());
-console.log(test.entries());
+// console.log(test.keys());
+// console.log(test.values());
+// console.log(test.entries());

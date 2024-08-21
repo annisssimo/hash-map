@@ -9,28 +9,51 @@ class HashMap {
     let hashCode = 0;
     const primeNumber = 31;
     for (let i = 0; i < key.length; i++) {
-      hashCode = primeNumber * hashCode + key.charCodeAt(i);
+      hashCode =
+        (primeNumber * hashCode + key.charCodeAt(i)) % this.buckets.length;
     }
-    return hashCode % this.buckets.length;
+    return hashCode;
   }
 
-  toString() {
-    let result = '';
-    for (let i = 0; i < this.buckets.length; i++) {
-      result += `Bucket ${i}: ${JSON.stringify(this.buckets[i])}\n`;
+  resize() {
+    const oldBuckets = this.buckets;
+    this.buckets = new Array(this.buckets.length * 2);
+    this.size = 0;
+
+    for (let i = 0; i < oldBuckets.length; i++) {
+      if (oldBuckets[i]) {
+        for (let j = 0; j < oldBuckets[i].length; j++) {
+          const [key, value] = oldBuckets[i][j];
+          this.set(key, value);
+        }
+      }
     }
-    return result || 'HashMap is empty';
   }
 
   set(key, value) {
     const index = this.hash(key);
 
+    if (index < 0 || index >= this.buckets.length) {
+      throw new Error('Trying to access index out of bound');
+    }
+
     if (!this.buckets[index]) {
       this.buckets[index] = [];
     }
 
+    for (let i = 0; i < this.buckets[index].length; i++) {
+      if (this.buckets[index][i][0] === key) {
+        this.buckets[index][i][1] = value;
+        return;
+      }
+    }
+
     this.buckets[index].push([key, value]);
     this.size++;
+
+    if (this.size / this.buckets.length > this.loadFactor) {
+      this.resize();
+    }
   }
 
   get(key) {
@@ -49,6 +72,8 @@ class HashMap {
         return this.buckets[index][i][1];
       }
     }
+
+    return null;
   }
 
   has(key) {
@@ -63,6 +88,8 @@ class HashMap {
     }
 
     const bucket = this.buckets[index];
+    if (!bucket) return false;
+
     for (let i = 0; i < bucket.length; i++) {
       if (bucket[i][0] === key) {
         bucket.splice(i, 1);
@@ -78,7 +105,7 @@ class HashMap {
   }
 
   clear() {
-    this.buckets.fill(null);
+    this.buckets = new Array(this.buckets.length);
     this.size = 0;
   }
 
@@ -107,9 +134,21 @@ class HashMap {
   }
 
   entries() {
-    let result = [];
+    const result = [];
     for (let i = 0; i < this.buckets.length; i++) {
-      result.push(this.buckets[i]);
+      if (this.buckets[i]) {
+        for (let j = 0; j < this.buckets[i].length; j++) {
+          result.push(this.buckets[i][j]);
+        }
+      }
+    }
+    return result;
+  }
+
+  toString() {
+    let result = '';
+    for (let i = 0; i < this.buckets.length; i++) {
+      result += `Bucket ${i}: ${JSON.stringify(this.buckets[i])}\n`;
     }
     return result || 'HashMap is empty';
   }
