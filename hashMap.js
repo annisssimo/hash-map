@@ -66,10 +66,20 @@ class HashMap {
     for (let i = 0; i < bucket.length; i++) {
       if (bucket[i][0] === key) {
         bucket.splice(i, 1);
+        this.size--;
         return true;
       }
     }
     return false;
+  }
+
+  length() {
+    return this.size;
+  }
+
+  clear() {
+    this.buckets.fill(null);
+    this.size = 0;
   }
 }
 

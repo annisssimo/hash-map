@@ -24,3 +24,8 @@ console.log(test.has('abra'));
 
 console.log(test.remove('frog'));
 console.log(test.toString());
+
+console.log(test.length());
+
+test.clear();
+console.log(test.toString());
