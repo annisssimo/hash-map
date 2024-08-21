@@ -18,3 +18,9 @@ test.set('lion', 'golden');
 console.log(test.toString());
 
 console.log(test.get('frog'));
+
+console.log(test.has('lion'));
+console.log(test.has('abra'));
+
+console.log(test.remove('frog'));
+console.log(test.toString());
